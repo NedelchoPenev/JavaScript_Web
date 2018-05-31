@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "gulp": "3.9.1",
+    "gulp-clean-css": "3.9.4",
     "multiparty": "^4.1.4",
     "shortid": "^2.2.8"
   }
