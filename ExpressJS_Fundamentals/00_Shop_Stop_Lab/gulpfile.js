@@ -1,6 +1,6 @@
-const gulp = require("gulp");
-const minifyCss = require("gulp-clean-css");
-const rename = require("gulp-rename");
+const gulp = require("gulp")
+const minifyCss = require("gulp-clean-css")
+const rename = require("gulp-rename")
 
 gulp.task("minify-css", () => {
     gulp.src("./content/styles/*.css")
@@ -8,5 +8,5 @@ gulp.task("minify-css", () => {
         .pipe(rename({
             suffix: ".min"
         }))
-        .pipe(gulp.dest("./content/styles"));
+        .pipe(gulp.dest("./content/styles"))
 });
