@@ -16,12 +16,12 @@ module.exports = (req, res) => {
 
         fs.readFile(filePath, (err, data) => {
             if (err) {
-                console.log(err);
+                console.log(err)
                 res.writeHead(404, {
                     "Content-Type": "text/plain"
                 });
 
-                res.write("404 not found!");
+                res.write("404 not found!")
                 res.end();
                 return;
             }
@@ -30,60 +30,60 @@ module.exports = (req, res) => {
                 "Content-Type": "text/html"
             });
 
-            res.write(data);
-            res.end();
+            res.write(data)
+            res.end()
         })
     } else if (req.pathname === "/product/add" && req.method === "POST") {
         let form = new multiparty.Form();
-        let product = {};
+        let product = {}
         form.on("part", (part) => {
             if (part.filename) {
-                let dataString = "";
+                let dataString = ""
 
-                part.setEncoding("binary");
+                part.setEncoding("binary")
                 part.on("data", (data) => {
-                    dataString += data;
+                    dataString += data
                 });
 
                 part.on("end", () => {
-                    console.log(part.filename);
-                    let extension = part.filename.split(".").pop();
-                    let fileName = shortid.generate();
-                    let filePath = `./content/images/${fileName}.${extension}`;
+                    console.log(part.filename)
+                    let extension = part.filename.split(".").pop()
+                    let fileName = shortid.generate()
+                    let filePath = `./content/images/${fileName}.${extension}`
                     
-                    product.image = filePath;
+                    product.image = filePath
                     fs.writeFile(filePath, dataString, {encoding: "ascii"}, (err) => {
                         if (err) {
-                            console.log(err);
+                            console.log(err)
                             return;
                         }
                     });
                 });
                     
             } else {
-                part.setEncoding("utf-8");
+                part.setEncoding("utf-8")
                 let field = "";
                 part.on("data", (data) => {
-                    field += data;
+                    field += data
                 });
 
                 part.on("end", () => {
-                    product[part.name] = field;
+                    product[part.name] = field
                 });
             }
         });
 
         form.on("close", ()=> {
-            database.products.add(product);
+            database.products.add(product)
             res.writeHead(302, {
                 "Location": "/"
             });
 
-            res.end();
+            res.end()
         });
 
-        form.parse(req);
+        form.parse(req)
     } else {
-        return true;
+        return true
     }
 }
