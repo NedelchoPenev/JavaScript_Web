@@ -10,5 +10,6 @@ module.exports = (app) => {
     app.post('/product/add', upload.single('image'), handlers.product.addPost)
 
     app.get('/category/add', handlers.category.addGet)
-    app.post('/category/add', handlers.category.addPost)
+    app.post('/category/add', upload.array(), handlers.category.addPost)
+    app.get('/category/:category/products', handlers.category.productsByCategory)
 }
