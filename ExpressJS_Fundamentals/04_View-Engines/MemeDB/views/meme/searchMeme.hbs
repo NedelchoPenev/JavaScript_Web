@@ -1,0 +1,16 @@
+<h1>Search</h1>
+<div class="container">
+    <form action="/searchMemePost" enctype=multipart/form-data method="POST">
+        <label for="memeTitle">Title</label>
+        <input type="text" id="memeTitle" name="memeTitle" placeholder="The title of the meme">
+
+        <select name='genreSelect' id="genreSelect">
+            <option value="all">all</option>
+            {{#each genres}}
+            <option value="{{title}}">{{title}}</option>
+            {{/each}}
+        </select>
+        <input type="submit" value="Submit">
+
+    </form>
+</div>
