@@ -13,7 +13,8 @@ module.exports = (config) => {
         }
         console.log('Connected!')
     })
+    
     require('../models/Product')
     require('../models/Category')
-    
+    require('../models/User').seedAdminUser()
 }
