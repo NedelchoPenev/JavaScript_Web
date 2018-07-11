@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import requester from '../../../infarastucture/requester';
 import observer from '../../../infarastucture/observer';
 
@@ -21,7 +20,7 @@ class Comment extends Component {
                 <div className="comment-content">
                     {this.props.content}
                 </div>
-                <a href to='javascript.void(0)' className="action" onClick={this.deleteComment}>[Delete]</a>
+                <a href="javascript:void(0)" className="action" onClick={this.deleteComment}>[Delete]</a>
             </article>
         );
     }
