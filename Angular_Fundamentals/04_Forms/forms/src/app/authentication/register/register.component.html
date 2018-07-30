@@ -1,0 +1,59 @@
+<div class="container">
+  <h1>Registration Form</h1>
+  <div *ngIf="error" class="alert alert-warning">{{error.description}}</div>
+  <form #registerForm="ngForm" (ngSubmit)="registUser(registerForm.value)">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" name="username" required [(ngModel)]="model.username" #username="ngModel"
+        pattern="^[A-z][A-Za-z\d]+$">
+      <div [hidden]="username.valid || username.pristine" class="alert alert-warning">
+        Username must start with a capital letter and must contain only letters and digits
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password" required [(ngModel)]="model.password" #password="ngModel"
+        pattern="^[A-Za-z\d]{4,16}$">
+      <div [hidden]="password.valid || password.pristine" class="alert alert-warning">
+        Password must contain only letters and digits and must be between 4 and 16 symbols.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required [(ngModel)]="model.confirmPassword"
+        #confirmPassword="ngModel">
+      <div [hidden]="password.value === confirmPassword.value || confirmPassword.pristine" class="alert alert-warning">
+        Both passwords must match.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" class="form-control" id="firstName" name="firstName" required [(ngModel)]="model.firstName" #firstName="ngModel"
+        pattern="^[A-Z][a-z]+$">
+      <div [hidden]="firstName.valid || firstName.pristine" class="alert alert-warning">
+        Names must contain only letters and start with a capital letter.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" class="form-control" id="lastName" name="lastName" required [(ngModel)]="model.lastName" #lastName="ngModel"
+        pattern="^[A-Z][a-z]+$">
+      <div [hidden]="lastName.valid || lastName.pristine" class="alert alert-warning">
+        Names must contain only letters and start with a capital letter.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="text" class="form-control" id="email" name="email" required [(ngModel)]="model.email" #email="ngModel" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$">
+      <div [hidden]="email.valid || email.pristine" class="alert alert-warning">
+        Incorrect email
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="age">Age</label>
+      <input type="number" class="form-control" id="age" name="age" [(ngModel)]="model.age" #age="ngModel">
+    </div>
+
+    <button *ngIf="registerForm.valid" type="submit" class="btn btn-success">Register</button>
+  </form>
+</div>
