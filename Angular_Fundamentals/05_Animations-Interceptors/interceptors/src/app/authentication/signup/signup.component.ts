@@ -20,7 +20,7 @@ export class SignupComponent implements OnInit {
   signUp() {
     this.authService
       .register(this.model)
-      .subscribe();
+      .subscribe( );
   }
 
 }
