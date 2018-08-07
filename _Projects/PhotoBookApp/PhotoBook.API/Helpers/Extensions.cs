@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Http;
 
 namespace PhotoBook.API.Helpers
@@ -9,6 +10,16 @@ namespace PhotoBook.API.Helpers
             response.Headers.Add("Application-Error", message);
             response.Headers.Add("Access-Control-Expose-Headers", "Application-Error");
             response.Headers.Add("Access-Control-Allow-Origin", "*");
+        }
+
+        public static int CalculateAge(this DateTime date)
+        {
+            var age = DateTime.Now.Year - date.Year;
+            if (date.AddYears(age) > DateTime.Today){
+                age--;
+            }
+
+            return age;
         }
     }
 }

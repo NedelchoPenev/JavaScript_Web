@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PhotoBook.API.Data;
+using PhotoBook.API.Dtos;
 
 namespace PhotoBook.API.Controllers
 {
@@ -11,8 +14,10 @@ namespace PhotoBook.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IPhotoBookRepository repo;
-        public UsersController(IPhotoBookRepository repo)
+        private readonly IMapper mapper;
+        public UsersController(IPhotoBookRepository repo, IMapper mapper)
         {
+            this.mapper = mapper;
             this.repo = repo;
         }
 
@@ -21,7 +26,9 @@ namespace PhotoBook.API.Controllers
         {
             var users = await this.repo.GetUsers();
 
-            return Ok(users);
+            var usersToReturn = this.mapper.Map<IEnumerable<UsersListDto>>(users);
+
+            return Ok(usersToReturn);
         }
 
         [HttpGet("{id}")]
@@ -29,7 +36,9 @@ namespace PhotoBook.API.Controllers
         {
             var user = await this.repo.GetUser(id);
 
-            return Ok(user);
+            var userToReturn = this.mapper.Map<UserForDetailsDto>(user);
+
+            return Ok(userToReturn);
         }
     }
 }
