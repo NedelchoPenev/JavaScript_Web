@@ -1,0 +1,192 @@
+[
+  {
+    "Username": "Kiro",
+    "DateOfBirth": "1962-01-30",
+    "Password": 1234,
+    "Created": "2018-08-24",
+    "LastActive": "2018-08-24",
+    "Country": "Central African Republic",
+    "Photos": [
+      {
+        "url": "https://randomuser.me/api/portraits/men/29.jpg",
+        "isMain": true,
+        "description":
+          "Sit aliquip tempor nostrud commodo amet mollit irure dolor eiusmod tempor."
+      }
+    ]
+  },
+  {
+    "Username": "Victor",
+    "DateOfBirth": "1983-12-28",
+    "Password": 1234,
+    "Created": "2018-08-27",
+    "LastActive": "2018-08-27",
+    "Country": "Jordan",
+    "Photos": [
+      {
+        "url": "https://randomuser.me/api/portraits/men/59.jpg",
+        "isMain": true,
+        "description":
+          "Mollit exercitation elit reprehenderit laboris incididunt culpa cillum officia ad aute eu ut."
+      }
+    ]
+  },
+  {
+    "Username": "Ivaylo",
+    "DateOfBirth": "1965-06-13",
+    "Password": 1234,
+    "Created": "2018-08-05",
+    "LastActive": "2018-08-05",
+    "Country": "Bulgaria",
+    "Photos": [
+      {
+        "url": "https://randomuser.me/api/portraits/men/62.jpg",
+        "isMain": true,
+        "description":
+          "Velit laborum culpa elit commodo deserunt eu enim occaecat nulla amet eu ex minim."
+      }
+    ]
+  },
+  {
+    "Username": "Ivan",
+    "DateOfBirth": "1993-12-05",
+    "Password": 1234,
+    "Created": "2018-08-27",
+    "LastActive": "2018-08-27",
+    "Country": "Bulgaria",
+    "Photos": [
+      {
+        "url": "https://randomuser.me/api/portraits/men/33.jpg",
+        "isMain": true,
+        "description":
+          "Quis nisi proident occaecat ipsum consectetur occaecat mollit ullamco."
+      }
+    ]
+  },
+  {
+    "Username": "Nacho",
+    "DateOfBirth": "1964-03-08",
+    "Password": 1234,
+    "Created": "2018-08-23",
+    "LastActive": "2018-08-23",
+    "Country": "Burkina Faso",
+    "Photos": [
+      {
+        "url": "https://randomuser.me/api/portraits/men/10.jpg",
+        "isMain": true,
+        "description":
+          "Ex do in fugiat officia aliquip ad esse exercitation sit Lorem Lorem."
+      }
+    ]
+  },
+  {
+    "Username": "Plamen",
+    "DateOfBirth": "1970-05-19",
+    "Password": 1234,
+    "Created": "2018-08-24",
+    "LastActive": "2018-08-24",
+    "Country": "Fiji",
+    "Photos": [
+      {
+        "url": "https://randomuser.me/api/portraits/men/59.jpg",
+        "isMain": true,
+        "description":
+          "Minim commodo laborum minim nulla cupidatat est reprehenderit adipisicing fugiat proident proident cupidatat irure."
+      }
+    ]
+  },
+  {
+    "Username": "Kocha",
+    "DateOfBirth": "1959-12-20",
+    "Password": 1234,
+    "Created": "2018-08-14",
+    "LastActive": "2018-08-14",
+    "Country": "Bulgaria",
+    "Photos": [
+      {
+        "url": "https://randomuser.me/api/portraits/men/48.jpg",
+        "isMain": true,
+        "description":
+          "Laborum consectetur consequat est eu ut sint dolore eu ea culpa tempor."
+      }
+    ]
+  },
+  {
+    "Username": "Ines",
+    "DateOfBirth": "1996-06-26",
+    "Password": 1234,
+    "Created": "2018-08-23",
+    "LastActive": "2018-08-23",
+    "Country": "Bulgaria",
+    "Photos": [
+      {
+        "url": "https://randomuser.me/api/portraits/women/39.jpg",
+        "isMain": true,
+        "description":
+          "Deserunt duis est aute et eiusmod et deserunt incididunt esse."
+      }
+    ]
+  },
+  {
+    "Username": "Lidia",
+    "DateOfBirth": "1962-12-28",
+    "Password": 1234,
+    "Created": "2018-07-30",
+    "LastActive": "2018-07-30",
+    "Country": "Oman",
+    "Photos": [
+      {
+        "url": "https://randomuser.me/api/portraits/women/62.jpg",
+        "isMain": true,
+        "description":
+          "Sunt consequat dolore tempor quis ullamco eu Lorem do aute."
+      }
+    ]
+  },
+  {
+    "Username": "Mae",
+    "DateOfBirth": "1986-09-18",
+    "Password": 1234,
+    "Created": "2018-07-13",
+    "LastActive": "2018-07-13",
+    "Country": "Philippines",
+    "Photos": [
+      {
+        "url": "https://randomuser.me/api/portraits/women/88.jpg",
+        "isMain": true,
+        "description": "Labore commodo reprehenderit aute et."
+      }
+    ]
+  },
+  {
+    "Username": "Anastasia",
+    "DateOfBirth": "1977-05-15",
+    "Password": 1234,
+    "Created": "2018-08-09",
+    "LastActive": "2018-08-09",
+    "Country": "Panama",
+    "Photos": [
+      {
+        "url": "https://randomuser.me/api/portraits/women/61.jpg",
+        "isMain": true,
+        "description": "Commodo incididunt esse anim quis qui aliquip."
+      }
+    ]
+  },
+  {
+    "Username": "Freda",
+    "DateOfBirth": "1967-08-11",
+    "Password": 1234,
+    "Created": "2018-08-10",
+    "LastActive": "2018-08-10",
+    "Country": "Hong Kong",
+    "Photos": [
+      {
+        "url": "https://randomuser.me/api/portraits/women/85.jpg",
+        "isMain": true,
+        "description":
+          "Nostrud cillum quis minim consequat do eiusmod aute elit."
+      }
+    ]
+  }
+]
