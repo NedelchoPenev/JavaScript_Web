@@ -2,8 +2,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
+import { JwtModule } from '@auth0/angular-jwt';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -14,40 +16,60 @@ import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 import { AlertifyService } from './services/alertify.service';
 import { MessagesComponent } from './messages/messages.component';
 import { FavoritePhotographersComponent } from './favorite-photographers/favorite-photographers.component';
-import { AllPhotographersComponent } from './all-photographers/all-photographers.component';
+import { AllPhotographersComponent } from './photographers/all-photographers/all-photographers.component';
 import { FavoritePhotosComponent } from './favorite-photos/favorite-photos.component';
 import { AllPhotosComponent } from './all-photos/all-photos.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './guards/auth.guard';
+import { UserService } from './services/user.service';
+import { PhotopgrapherCardComponent } from './photographers/photopgrapher-card/photopgrapher-card.component';
+import { DetailPhotographerComponent } from './photographers/detail-photographer/detail-photographer.component';
+import { PhotographerDetailResolver } from './resolvers/photographer-detail-resolver';
+import { AllPhotographersResolver } from './resolvers/all-photographer-resolver';
 
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      NavComponent,
-      HomeComponent,
-      RegisterComponent,
-      MessagesComponent,
-      FavoritePhotographersComponent,
-      AllPhotographersComponent,
-      FavoritePhotosComponent,
-      AllPhotosComponent
-   ],
-   imports: [
-      BrowserModule,
-      HttpClientModule,
-      BsDropdownModule.forRoot(),
-      RouterModule.forRoot(appRoutes),
-      FormsModule
-   ],
-   providers: [
-      AuthService,
-      ErrorInterceptorProvider,
-      AlertifyService,
-      AuthGuard
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    AppComponent,
+    NavComponent,
+    HomeComponent,
+    RegisterComponent,
+    MessagesComponent,
+    FavoritePhotographersComponent,
+    AllPhotographersComponent,
+    FavoritePhotosComponent,
+    AllPhotosComponent,
+    PhotopgrapherCardComponent,
+    DetailPhotographerComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    NgxGalleryModule,
+    BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    JwtModule.forRoot({
+        config: {
+          tokenGetter: tokenGetter,
+          whitelistedDomains: ['localhost:5000'],
+          blacklistedRoutes: ['localhost:5000/api/auth/']
+        }
+      })
+  ],
+  providers: [
+    AuthService,
+    ErrorInterceptorProvider,
+    AlertifyService,
+    AuthGuard,
+    UserService,
+    PhotographerDetailResolver,
+    AllPhotographersResolver
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

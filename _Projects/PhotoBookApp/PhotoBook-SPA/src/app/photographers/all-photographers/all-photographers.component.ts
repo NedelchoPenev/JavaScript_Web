@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-all-photographers',
@@ -6,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./all-photographers.component.css']
 })
 export class AllPhotographersComponent implements OnInit {
+  users: User[];
 
-  constructor() { }
+  constructor(
+    private router: ActivatedRoute
+  ) {}
 
   ngOnInit() {
+    this.router.data.subscribe(data => {
+      this.users = data['users'];
+    });
   }
-
 }
