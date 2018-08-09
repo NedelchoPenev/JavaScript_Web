@@ -49,6 +49,8 @@ namespace PhotoBook.API.Migrations
 
                     b.Property<DateTime>("DateOfBirth");
 
+                    b.Property<string>("Introduction");
+
                     b.Property<DateTime>("LastActive");
 
                     b.Property<byte[]>("PasswordHash");

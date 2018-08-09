@@ -33,6 +33,10 @@
     <div class="col-sm-8 mt-4">
       <div class="tab-panel">
         <tabset class="member-tabset">
+            <tab heading="About {{user.username | titlecase}}">
+                <h4>Description</h4>
+                <p>{{user.introduction}}</p>
+              </tab>
           <tab heading="Photos">
             <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
           </tab>

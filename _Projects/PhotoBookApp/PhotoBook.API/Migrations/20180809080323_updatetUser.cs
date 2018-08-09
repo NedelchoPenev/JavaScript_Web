@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PhotoBook.API.Migrations
 {
-    public partial class UserData : Migration
+    public partial class updatetUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,6 +23,11 @@ namespace PhotoBook.API.Migrations
                 table: "Users",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
+            migrationBuilder.AddColumn<string>(
+                name: "Introduction",
+                table: "Users",
+                nullable: true);
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "LastActive",
@@ -74,6 +79,10 @@ namespace PhotoBook.API.Migrations
 
             migrationBuilder.DropColumn(
                 name: "DateOfBirth",
+                table: "Users");
+
+            migrationBuilder.DropColumn(
+                name: "Introduction",
                 table: "Users");
 
             migrationBuilder.DropColumn(

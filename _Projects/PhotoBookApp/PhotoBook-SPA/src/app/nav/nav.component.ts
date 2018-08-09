@@ -27,7 +27,7 @@ export class NavComponent implements OnInit {
         this.router.navigate(['/photos/all']);
       },
       err => {
-        this.alertify.error(err);
+        this.alertify.error(err + ': Wrong username or password');
       }
     );
   }

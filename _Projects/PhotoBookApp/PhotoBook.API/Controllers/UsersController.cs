@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -39,6 +41,25 @@ namespace PhotoBook.API.Controllers
             var userToReturn = this.mapper.Map<UserForDetailsDto>(user);
 
             return Ok(userToReturn);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UserUpdateDto userDto) {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+
+            var user = await this.repo.GetUser(id);
+            var result = this.mapper.Map(userDto, user);
+            
+
+            if (await this.repo.SaveAll())
+            {
+                return NoContent();
+            }
+
+            throw new Exception("Unable to update user with id: " + id);
         }
     }
 }

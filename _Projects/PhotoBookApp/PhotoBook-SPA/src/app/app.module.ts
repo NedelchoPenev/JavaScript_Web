@@ -26,6 +26,9 @@ import { PhotopgrapherCardComponent } from './photographers/photopgrapher-card/p
 import { DetailPhotographerComponent } from './photographers/detail-photographer/detail-photographer.component';
 import { PhotographerDetailResolver } from './resolvers/photographer-detail-resolver';
 import { AllPhotographersResolver } from './resolvers/all-photographer-resolver';
+import { EditProfileComponent } from './photographers/edit-profile/edit-profile.component';
+import { EditProfileResolver } from './resolvers/edit-profile-resolver';
+import { PreventUnsavedChanges } from './guards/prevent-unsaved-changes-guard';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -43,7 +46,8 @@ export function tokenGetter() {
     FavoritePhotosComponent,
     AllPhotosComponent,
     PhotopgrapherCardComponent,
-    DetailPhotographerComponent
+    DetailPhotographerComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -66,9 +70,11 @@ export function tokenGetter() {
     ErrorInterceptorProvider,
     AlertifyService,
     AuthGuard,
+    PreventUnsavedChanges,
     UserService,
     PhotographerDetailResolver,
-    AllPhotographersResolver
+    AllPhotographersResolver,
+    EditProfileResolver
   ],
   bootstrap: [AppComponent]
 })

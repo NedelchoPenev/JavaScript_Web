@@ -9,8 +9,8 @@ using PhotoBook.API.Data;
 namespace PhotoBook.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180807142120_UserData")]
-    partial class UserData
+    [Migration("20180809080323_updatetUser")]
+    partial class updatetUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,6 +50,8 @@ namespace PhotoBook.API.Migrations
                     b.Property<DateTime>("Created");
 
                     b.Property<DateTime>("DateOfBirth");
+
+                    b.Property<string>("Introduction");
 
                     b.Property<DateTime>("LastActive");
 
