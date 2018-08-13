@@ -5,12 +5,22 @@
     <input type="text" class="form-control" required name="username" 
     [(ngModel)]="model.username" placeholder="Username">
   </div>
-
   <div class="form-group">
     <input type="password" class="form-control" required name="password" 
     [(ngModel)]="model.password" placeholder="Password">
   </div>
-
+  <div class="form-group">
+    <input type="password" class="form-control" required name="confirmPassword" 
+    [(ngModel)]="model.confirmPassword" placeholder="Confirm Password">
+  </div>
+  <div class="form-group">
+    <input type="date" class="form-control" required name="dateOfBirth" 
+    [(ngModel)]="model.dateOfBirth" placeholder="Date of birth">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" required name="country" 
+    [(ngModel)]="model.country" placeholder="Country">
+  </div>
   <div class="form-group text-center">
     <button class="btn btn-success mr-2" type="submit">Register</button>
     <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>

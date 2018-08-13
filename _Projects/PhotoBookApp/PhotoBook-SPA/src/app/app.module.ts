@@ -6,6 +6,7 @@ import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -29,6 +30,7 @@ import { AllPhotographersResolver } from './resolvers/all-photographer-resolver'
 import { EditProfileComponent } from './photographers/edit-profile/edit-profile.component';
 import { EditProfileResolver } from './resolvers/edit-profile-resolver';
 import { PreventUnsavedChanges } from './guards/prevent-unsaved-changes-guard';
+import { PhotoEditorComponent } from './photographers/photo-editor/photo-editor.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -47,12 +49,14 @@ export function tokenGetter() {
     AllPhotosComponent,
     PhotopgrapherCardComponent,
     DetailPhotographerComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    PhotoEditorComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     NgxGalleryModule,
+    FileUploadModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),

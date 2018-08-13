@@ -31,6 +31,9 @@ namespace PhotoBook.API.Helpers
 
             CreateMap<Photo, PhotoDetailsDto>();
             CreateMap<UserUpdateDto, User>();
+            CreateMap<Photo, PhotoReturnDto>();
+            CreateMap<PhotoCreateDto, Photo>();
+            CreateMap<UserForRegistrationDto, User>();
         }
     }
 }

@@ -29,11 +29,20 @@ export class EditProfileComponent implements OnInit {
   }
 
   updateProfile() {
-    this.userService.updateUser(this.authService.decodedToken.nameid, this.user).subscribe(() => {
-      this.alertify.success('Profile updated');
-      this.editForm.reset(this.user);
-    }, err => {
-      this.alertify.error(err);
-    });
+    this.userService
+      .updateUser(this.authService.decodedToken.nameid, this.user)
+      .subscribe(
+        () => {
+          this.alertify.success('Profile updated');
+          this.editForm.reset(this.user);
+        },
+        err => {
+          this.alertify.error(err);
+        }
+      );
+  }
+
+  updateMainPhoto(photoUrl) {
+    this.user.photoUrl = photoUrl;
   }
 }

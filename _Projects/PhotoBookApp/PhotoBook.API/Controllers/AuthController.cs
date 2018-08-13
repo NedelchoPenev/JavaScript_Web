@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,8 +19,10 @@ namespace PhotoBook.API.Controllers
     {
         private readonly IAuthRepository authRepo;
         private readonly IConfiguration config;
-        public AuthController(IAuthRepository authRepo, IConfiguration config)
+        private readonly IMapper mapper;
+        public AuthController(IAuthRepository authRepo, IConfiguration config, IMapper mapper)
         {
+            this.mapper = mapper;
             this.config = config;
             this.authRepo = authRepo;
         }
@@ -34,14 +37,13 @@ namespace PhotoBook.API.Controllers
                 return BadRequest("User already exists.");
             }
 
-            var userToCreate = new User
-            {
-                Username = userReg.Username
-            };
+            var userToCreate = this.mapper.Map<User>(userReg);
 
             var createdUser = this.authRepo.Register(userToCreate, userReg.Password);
 
-            return StatusCode(201);
+            var userToReturn = this.mapper.Map<UserForDetailsDto>(userToCreate);
+
+            return CreatedAtRoute("GetUser", new {controller = "user", id = userToCreate.Id}, userToReturn);
         }
 
         [HttpPost("login")]
@@ -76,7 +78,8 @@ namespace PhotoBook.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new {
+            return Ok(new
+            {
                 token = tokenHandler.WriteToken(token)
             });
         }
