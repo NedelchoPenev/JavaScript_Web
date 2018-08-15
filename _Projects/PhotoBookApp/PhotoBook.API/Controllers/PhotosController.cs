@@ -13,6 +13,7 @@ using PhotoBook.API.Models;
 
 namespace PhotoBook.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/users/{userId}/photos")]
     [ApiController]

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PhotoBook.API.Data;
 using PhotoBook.API.Dtos;
+using PhotoBook.API.Helpers;
 
 namespace PhotoBook.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -24,11 +26,16 @@ namespace PhotoBook.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers([FromQuery] UserParams userParams)
         {
-            var users = await this.repo.GetUsers();
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            userParams.userId = currentUserId;
+
+            var users = await this.repo.GetUsers(userParams);
 
             var usersToReturn = this.mapper.Map<IEnumerable<UsersListDto>>(users);
+
+            Response.AddPegination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
             return Ok(usersToReturn);
         }

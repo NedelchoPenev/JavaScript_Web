@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PhotoBook.API.Data;
 using PhotoBook.API.Dtos;
+using PhotoBook.API.Helpers;
 using PhotoBook.API.Models;
 
 namespace PhotoBook.API.Controllers
@@ -45,7 +46,7 @@ namespace PhotoBook.API.Controllers
 
             return CreatedAtRoute("GetUser", new {controller = "user", id = userToCreate.Id}, userToReturn);
         }
-
+        
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userLogin)
         {

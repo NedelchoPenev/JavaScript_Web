@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PhotoBook.API.Helpers;
 using PhotoBook.API.Models;
 
 namespace PhotoBook.API.Data
@@ -44,11 +45,13 @@ namespace PhotoBook.API.Data
             return user;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {
-            var users = await this.context.Users.Include(p => p.Photos).ToListAsync();
+            var users = this.context.Users.Include(p => p.Photos).AsQueryable();
 
-            return users;
+            users = users.Where(u => u.Id != userParams.userId);
+
+            return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<bool> SaveAll()

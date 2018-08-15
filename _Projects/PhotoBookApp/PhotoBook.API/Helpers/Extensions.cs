@@ -1,5 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace PhotoBook.API.Helpers
 {
@@ -12,10 +14,21 @@ namespace PhotoBook.API.Helpers
             response.Headers.Add("Access-Control-Allow-Origin", "*");
         }
 
+        public static void AddPegination(this HttpResponse response,
+            int currentPage, int itemsPerPage, int totalItems, int TotalPages)
+        {
+            var paginationHeader = new PaginationHeader(currentPage, itemsPerPage, totalItems, TotalPages);
+            var camelCaseFormatter = new JsonSerializerSettings();
+            camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            response.Headers.Add("Pagination", JsonConvert.SerializeObject(paginationHeader, camelCaseFormatter));
+            response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
+        }
+
         public static int CalculateAge(this DateTime date)
         {
             var age = DateTime.Now.Year - date.Year;
-            if (date.AddYears(age) > DateTime.Today){
+            if (date.AddYears(age) > DateTime.Today)
+            {
                 age--;
             }
 

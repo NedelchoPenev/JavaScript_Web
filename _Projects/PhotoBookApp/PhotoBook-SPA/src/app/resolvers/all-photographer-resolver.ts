@@ -19,7 +19,7 @@ export class AllPhotographersResolver implements Resolve<User[]> {
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
-    return this.userService.getUsers().pipe(
+    return this.userService.getUsers(1, 6).pipe(
         catchError(err => {
             this.alertify.error(err);
             this.router.navigate(['home']);

@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { AlertifyService } from '../services/alertify.service';
 import { Router } from '@angular/router';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-register',
@@ -9,6 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  colorTheme = 'theme-default';
+  bsConfig: Partial<BsDatepickerConfig>;
   model: any = {};
   @Output()
   cancelRegister = new EventEmitter();
@@ -18,7 +21,11 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.bsConfig = {
+      containerClass: this.colorTheme
+    };
+  }
 
   register() {
     this.authService.register(this.model).subscribe(
