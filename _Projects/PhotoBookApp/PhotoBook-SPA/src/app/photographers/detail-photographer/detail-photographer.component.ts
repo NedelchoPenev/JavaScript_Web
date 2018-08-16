@@ -6,6 +6,9 @@ import {
   NgxGalleryAnimation
 } from 'ngx-gallery';
 import { User } from '../../models/user';
+import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
+import { AlertifyService } from '../../services/alertify.service';
 
 @Component({
   selector: 'app-detail-photographer',
@@ -16,7 +19,10 @@ export class DetailPhotographerComponent implements OnInit {
   user: User;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
-  constructor(private router: ActivatedRoute) {}
+  constructor(private router: ActivatedRoute,
+    private authService: AuthService,
+    private userService: UserService,
+    private alertify: AlertifyService) {}
 
   ngOnInit() {
     this.router.data.subscribe(data => {
@@ -48,5 +54,13 @@ export class DetailPhotographerComponent implements OnInit {
     }
 
     return imageUrls;
+  }
+
+  sendLike(id) {
+    this.userService.sendLike(this.authService.decodedToken.nameid, id).subscribe(data => {
+      this.alertify.success('You have liked: ' + this.user.username);
+    }, err => {
+      this.alertify.error(err);
+    });
   }
 }

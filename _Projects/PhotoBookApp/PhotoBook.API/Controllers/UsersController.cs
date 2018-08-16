@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using PhotoBook.API.Data;
 using PhotoBook.API.Dtos;
 using PhotoBook.API.Helpers;
+using PhotoBook.API.Models;
 
 namespace PhotoBook.API.Controllers
 {
@@ -67,6 +68,47 @@ namespace PhotoBook.API.Controllers
             }
 
             throw new Exception("Unable to update user with id: " + id);
+        }
+
+        [HttpPost("{id}/like/{recipientId}")]
+        public async Task<IActionResult> LikeUser(int id, int recipientId)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+
+            if (id == recipientId)
+            {
+                return BadRequest("You cannot like yourself");
+            }
+
+            var like = await this.repo.GetLike(id, recipientId);
+
+            if (like != null)
+            {
+                return BadRequest("You already like this user");
+            }
+
+            if (await this.repo.GetUser(recipientId) == null)
+            {
+                return NotFound();
+            }
+
+            like = new Like
+            {
+                LikerId = id,
+                LikeeId = recipientId
+            };
+
+            this.repo.Add<Like>(like);
+
+            if (await this.repo.SaveAll())
+            {
+                return Ok();
+            }
+
+            return BadRequest("Failed to like user");
         }
     }
 }

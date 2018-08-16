@@ -11,9 +11,10 @@ import { UserService } from '../services/user.service';
 import { AlertifyService } from '../services/alertify.service';
 
 @Injectable()
-export class AllPhotographersResolver implements Resolve<User[]> {
+export class FavoritePhotographersResolver implements Resolve<User[]> {
   pageNumber = 1;
   pageSize = 6;
+  likesParam = 'Likees';
   constructor(
     private userService: UserService,
     private alertify: AlertifyService,
@@ -21,7 +22,7 @@ export class AllPhotographersResolver implements Resolve<User[]> {
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
-    return this.userService.getUsers(this.pageNumber, this.pageSize).pipe(
+    return this.userService.getUsers(this.pageNumber, this.pageSize, this.likesParam).pipe(
         catchError(err => {
             this.alertify.error(err);
             this.router.navigate(['home']);

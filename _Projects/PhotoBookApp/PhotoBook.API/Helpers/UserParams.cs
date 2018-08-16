@@ -12,6 +12,7 @@ namespace PhotoBook.API.Helpers
         }
 
         public int userId { get; set; }
-        
+        public bool Likees { get; set; } = false;
+        public bool Likers { get; set; } = false;
     }
 }

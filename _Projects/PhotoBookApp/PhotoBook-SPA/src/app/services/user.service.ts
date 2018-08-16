@@ -13,7 +13,7 @@ const baseUrl = environment.baseUrl;
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  getUsers(page?, itemsPerPage?) {
+  getUsers(page?, itemsPerPage?, likesParam?) {
     const paginationResult: PaginationResult<User[]> = new PaginationResult<User[]>();
 
     let params = new HttpParams();
@@ -23,12 +23,16 @@ export class UserService {
       params = params.append('pageSize', itemsPerPage);
     }
 
+    if (likesParam === 'Likees') {
+      params = params.append('likees', 'true');
+    }
+
     return this.http.get<User[]>(baseUrl + 'users', {observe: 'response', params})
       .pipe(
         map(response => {
           paginationResult.result = response.body;
           if (response.headers.get('Pagination') != null) {
-            paginationResult.pagination = JSON.parse(response.headers.get('Pagination'))
+            paginationResult.pagination = JSON.parse(response.headers.get('Pagination'));
           }
           return paginationResult;
         })
@@ -52,5 +56,9 @@ export class UserService {
 
   deletePhoto(userId, photoId) {
     return this.http.delete(baseUrl + 'users/' + userId + '/photos/' + photoId);
+  }
+
+  sendLike(id, recipientId) {
+    return this.http.post(baseUrl + 'users/' + id + '/like/' + recipientId, {});
   }
 }

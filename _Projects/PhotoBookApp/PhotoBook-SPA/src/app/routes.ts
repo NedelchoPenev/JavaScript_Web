@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AllPhotographersComponent } from './photographers/all-photographers/all-photographers.component';
-import { FavoritePhotographersComponent } from './favorite-photographers/favorite-photographers.component';
+import { FavoritePhotographersComponent } from './photographers/favorite-photographers/favorite-photographers.component';
 import { AllPhotosComponent } from './all-photos/all-photos.component';
 import { FavoritePhotosComponent } from './favorite-photos/favorite-photos.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -12,6 +12,7 @@ import { AllPhotographersResolver } from './resolvers/all-photographer-resolver'
 import { EditProfileComponent } from './photographers/edit-profile/edit-profile.component';
 import { EditProfileResolver } from './resolvers/edit-profile-resolver';
 import { PreventUnsavedChanges } from './guards/prevent-unsaved-changes-guard';
+import { FavoritePhotographersResolver } from './resolvers/favorite-photographer-resolver';
 
 export const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -44,7 +45,8 @@ export const appRoutes: Routes = [
       },
       {
         path: 'photographers/favorite',
-        component: FavoritePhotographersComponent
+        component: FavoritePhotographersComponent,
+        resolve: { users: FavoritePhotographersResolver }
       },
       { path: 'photos/all', component: AllPhotosComponent },
       { path: 'photos/favorite', component: FavoritePhotosComponent }

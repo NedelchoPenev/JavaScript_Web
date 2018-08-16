@@ -17,7 +17,7 @@ import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 import { AlertifyService } from './services/alertify.service';
 import { MessagesComponent } from './messages/messages.component';
-import { FavoritePhotographersComponent } from './favorite-photographers/favorite-photographers.component';
+import { FavoritePhotographersComponent } from './photographers/favorite-photographers/favorite-photographers.component';
 import { AllPhotographersComponent } from './photographers/all-photographers/all-photographers.component';
 import { FavoritePhotosComponent } from './favorite-photos/favorite-photos.component';
 import { AllPhotosComponent } from './all-photos/all-photos.component';
@@ -32,6 +32,7 @@ import { EditProfileComponent } from './photographers/edit-profile/edit-profile.
 import { EditProfileResolver } from './resolvers/edit-profile-resolver';
 import { PreventUnsavedChanges } from './guards/prevent-unsaved-changes-guard';
 import { PhotoEditorComponent } from './photographers/photo-editor/photo-editor.component';
+import { FavoritePhotographersResolver } from './resolvers/favorite-photographer-resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -82,7 +83,8 @@ export function tokenGetter() {
     UserService,
     PhotographerDetailResolver,
     AllPhotographersResolver,
-    EditProfileResolver
+    EditProfileResolver,
+    FavoritePhotographersResolver
   ],
   bootstrap: [AppComponent]
 })
