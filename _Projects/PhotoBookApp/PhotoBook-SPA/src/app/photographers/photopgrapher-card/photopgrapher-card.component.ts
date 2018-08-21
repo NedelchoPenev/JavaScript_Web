@@ -23,7 +23,7 @@ export class PhotopgrapherCardComponent implements OnInit {
 
   sendLike(id) {
     this.userService.sendLike(this.authService.decodedToken.nameid, id).subscribe(data => {
-      this.alertify.success('You have liked: ' + this.user.username);
+      this.alertify.success('You have liked: ' + this.user.userName);
     }, err => {
       this.alertify.error(err);
     });

@@ -13,6 +13,8 @@ import { EditProfileComponent } from './photographers/edit-profile/edit-profile.
 import { EditProfileResolver } from './resolvers/edit-profile-resolver';
 import { PreventUnsavedChanges } from './guards/prevent-unsaved-changes-guard';
 import { FavoritePhotographersResolver } from './resolvers/favorite-photographer-resolver';
+import { MessagesResolver } from './resolvers/messages-resolver';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 
 export const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -25,7 +27,7 @@ export const appRoutes: Routes = [
       {
         path: 'messages',
         component: MessagesComponent,
-        canActivate: [AuthGuard]
+        resolve: {messages: MessagesResolver}
       },
       {
         path: 'photographers/all',
@@ -49,7 +51,8 @@ export const appRoutes: Routes = [
         resolve: { users: FavoritePhotographersResolver }
       },
       { path: 'photos/all', component: AllPhotosComponent },
-      { path: 'photos/favorite', component: FavoritePhotosComponent }
+      { path: 'photos/favorite', component: FavoritePhotosComponent },
+      { path: 'admin', component: AdminPanelComponent,  data: {roles: ['Admin', 'Moderator']}}
     ]
   },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }

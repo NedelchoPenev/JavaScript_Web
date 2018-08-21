@@ -13,7 +13,6 @@ using PhotoBook.API.Models;
 namespace PhotoBook.API.Controllers
 {
     [ServiceFilter(typeof(LogUserActivity))]
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -30,7 +29,7 @@ namespace PhotoBook.API.Controllers
         public async Task<IActionResult> GetUsers([FromQuery] UserParams userParams)
         {
             var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            userParams.userId = currentUserId;
+            userParams.UserId = currentUserId;
 
             var users = await this.repo.GetUsers(userParams);
 

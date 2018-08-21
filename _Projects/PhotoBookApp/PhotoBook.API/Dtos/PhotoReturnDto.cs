@@ -14,5 +14,7 @@ namespace PhotoBook.API
         public bool IsMain { get; set; }
 
         public string PublicId { get; set; }
+
+        public int? UserId { get; set; }
     }
 }

@@ -1,3 +1,13 @@
-<p>
-  all-photos works!
-</p>
+<div class="container">
+  <carousel>
+    <slide *ngFor="let photo of photos">
+      <img src="{{photo.url}}" alt="first slide" style="display: block; width: 90%;">
+      <div class="carousel-caption d-none d-md-block">
+        <h3>First slide label</h3>
+        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        <li class="list-inline-item"><button class="btn btn-info"><i class="fa fa-thumbs-up"></i></button></li>
+        <li class="list-inline-item"><button class="btn btn-info"><i class="fa fa-user"></i></button></li>
+      </div>
+    </slide>
+  </carousel>
+</div>

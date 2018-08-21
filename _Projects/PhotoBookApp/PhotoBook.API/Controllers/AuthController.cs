@@ -1,10 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PhotoBook.API.Data;
@@ -14,54 +18,85 @@ using PhotoBook.API.Models;
 
 namespace PhotoBook.API.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthRepository authRepo;
         private readonly IConfiguration config;
         private readonly IMapper mapper;
-        public AuthController(IAuthRepository authRepo, IConfiguration config, IMapper mapper)
+        private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
+
+        public AuthController(IConfiguration config,
+            IMapper mapper,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager
+            )
         {
+            this.userManager = userManager;
+            this.signInManager = signInManager;
             this.mapper = mapper;
             this.config = config;
-            this.authRepo = authRepo;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegistrationDto userReg)
         {
-            userReg.Username = userReg.Username.ToLower();
-
-            if (await this.authRepo.UserExist(userReg.Username))
-            {
-                return BadRequest("User already exists.");
-            }
-
             var userToCreate = this.mapper.Map<User>(userReg);
-
-            var createdUser = this.authRepo.Register(userToCreate, userReg.Password);
+            var result = await this.userManager.CreateAsync(userToCreate, userReg.Password);
+            this.userManager.AddToRoleAsync(userToCreate, "Member").Wait();
 
             var userToReturn = this.mapper.Map<UserForDetailsDto>(userToCreate);
 
-            return CreatedAtRoute("GetUser", new {controller = "user", id = userToCreate.Id}, userToReturn);
+            if (result.Succeeded)
+            {
+                return CreatedAtRoute("GetUser", 
+                    new { controller = "Users", id = userToCreate.Id }, userToReturn);   
+            }
+
+            return BadRequest(result.Errors);
         }
-        
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userLogin)
         {
-            var userLoginRepo = await this.authRepo.Login(userLogin.Username.ToLower(), userLogin.Password);
+            var user = await this.userManager.FindByNameAsync(userLogin.UserName);
 
-            if (userLoginRepo == null)
+            var result = await this.signInManager
+                .CheckPasswordSignInAsync(user, userLogin.Password, false);
+
+            if (result.Succeeded)
             {
-                return Unauthorized();
+                var appUser = await this.userManager.Users.Include(p => p.Photos)
+                    .FirstOrDefaultAsync(u => u.NormalizedUserName == userLogin.UserName.ToUpper());
+
+                var userToReturn = this.mapper.Map<UsersListDto>(appUser);
+
+                return Ok(new
+                {
+                    token = GenerateJwtToken(appUser).Result,
+                    user = userToReturn
+                });
             }
 
-            var claims = new[]
+            return Unauthorized();
+        }
+
+        private async Task<string> GenerateJwtToken(User user)
+        {
+            var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, userLoginRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userLoginRepo.Username)
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName)
             };
+
+            var roles = await this.userManager.GetRolesAsync(user);
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8
             .GetBytes(this.config.GetSection("AppSettings:Token").Value));
@@ -79,10 +114,7 @@ namespace PhotoBook.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new
-            {
-                token = tokenHandler.WriteToken(token)
-            });
+            return tokenHandler.WriteToken(token);
         }
     }
 }

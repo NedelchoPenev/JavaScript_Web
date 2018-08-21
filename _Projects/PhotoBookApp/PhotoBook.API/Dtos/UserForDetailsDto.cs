@@ -6,7 +6,7 @@ namespace PhotoBook.API.Dtos
     public class UserForDetailsDto
     {
         public int Id { get; set; }
-        public string Username { get; set; }
+        public string UserName { get; set; }
         public string Introduction  { get; set; }
         public int Age { get; set; }
         public DateTime Created { get; set; }

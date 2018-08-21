@@ -2,12 +2,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule } from 'ngx-bootstrap';
+import {
+  BsDropdownModule,
+  TabsModule,
+  BsDatepickerModule,
+  PaginationModule,
+  ButtonsModule,
+  ModalModule,
+  CarouselModule
+} from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
-import {TimeAgoPipe} from 'time-ago-pipe';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -33,6 +41,12 @@ import { EditProfileResolver } from './resolvers/edit-profile-resolver';
 import { PreventUnsavedChanges } from './guards/prevent-unsaved-changes-guard';
 import { PhotoEditorComponent } from './photographers/photo-editor/photo-editor.component';
 import { FavoritePhotographersResolver } from './resolvers/favorite-photographer-resolver';
+import { MessagesResolver } from './resolvers/messages-resolver';
+import { PhotographerMessagesComponent } from './photographers/photographer-messages/photographer-messages.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { UserManagmentComponent } from './admin/user-managment/user-managment.component';
+import { PhotoManagmentComponent } from './admin/photo-managment/photo-managment.component';
+import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -53,7 +67,12 @@ export function tokenGetter() {
     DetailPhotographerComponent,
     EditProfileComponent,
     TimeAgoPipe,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    PhotographerMessagesComponent,
+    AdminPanelComponent,
+    UserManagmentComponent,
+    PhotoManagmentComponent,
+    RolesModalComponent
   ],
   imports: [
     BrowserModule,
@@ -63,16 +82,19 @@ export function tokenGetter() {
     BsDropdownModule.forRoot(),
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
     TabsModule.forRoot(),
+    CarouselModule.forRoot(),
+    ModalModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     FormsModule,
     JwtModule.forRoot({
-        config: {
-          tokenGetter: tokenGetter,
-          whitelistedDomains: ['localhost:5000'],
-          blacklistedRoutes: ['localhost:5000/api/auth/']
-        }
-      })
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:5000'],
+        blacklistedRoutes: ['localhost:5000/api/auth/']
+      }
+    })
   ],
   providers: [
     AuthService,
@@ -84,8 +106,10 @@ export function tokenGetter() {
     PhotographerDetailResolver,
     AllPhotographersResolver,
     EditProfileResolver,
-    FavoritePhotographersResolver
+    FavoritePhotographersResolver,
+    MessagesResolver
   ],
+  entryComponents: [RolesModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TabsetComponent } from 'ngx-bootstrap';
 import {
   NgxGalleryOptions,
   NgxGalleryImage,
@@ -16,6 +17,7 @@ import { AlertifyService } from '../../services/alertify.service';
   styleUrls: ['./detail-photographer.component.css']
 })
 export class DetailPhotographerComponent implements OnInit {
+  @ViewChild('staticTabs') staticTabs: TabsetComponent;
   user: User;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
@@ -27,6 +29,11 @@ export class DetailPhotographerComponent implements OnInit {
   ngOnInit() {
     this.router.data.subscribe(data => {
       this.user = data['user'];
+    });
+
+    this.router.queryParams.subscribe(data => {
+      const selectedTab = data['tab'];
+      this.staticTabs.tabs[selectedTab > 0 ? selectedTab : 0].active = true;
     });
 
     this.galleryOptions = [
@@ -58,9 +65,13 @@ export class DetailPhotographerComponent implements OnInit {
 
   sendLike(id) {
     this.userService.sendLike(this.authService.decodedToken.nameid, id).subscribe(data => {
-      this.alertify.success('You have liked: ' + this.user.username);
+      this.alertify.success('You have liked: ' + this.user.userName);
     }, err => {
       this.alertify.error(err);
     });
+  }
+
+  selectTab(tab_id: number) {
+    this.staticTabs.tabs[tab_id].active = true;
   }
 }

@@ -6,7 +6,7 @@ namespace PhotoBook.API.Dtos
     public class UserForRegistrationDto
     {
         [Required]
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [StringLength(8, MinimumLength = 4, ErrorMessage = "Password must be between 8 and 4 characters")]

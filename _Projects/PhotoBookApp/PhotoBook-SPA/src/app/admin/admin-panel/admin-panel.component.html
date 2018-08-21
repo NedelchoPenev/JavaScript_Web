@@ -1,0 +1,13 @@
+<div class="container mt-5">
+  <h2>Admin panel</h2>
+  <div class="tab-panel">
+    <tabset class="user-tabset">
+      <tab heading="User Management" *ngIf="authService.roleMatch(['Admin'])">
+        <app-user-managment></app-user-managment>
+      </tab>
+      <tab heading="Photo Management" *ngIf="authService.roleMatch(['Admin', 'Moderator'])">
+        <app-photo-managment></app-photo-managment>
+      </tab>
+    </tabset>
+  </div>
+</div>

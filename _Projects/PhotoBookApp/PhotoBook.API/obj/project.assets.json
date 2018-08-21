@@ -27,11 +27,8 @@
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
-      "CloudinaryDotNet/1.3.1": {
+      "CloudinaryDotNet/1.2.0": {
         "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "11.0.0"
-        },
         "compile": {
           "lib/netstandard1.3/CloudinaryDotNet.dll": {}
         },
@@ -4558,12 +4555,12 @@
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
       ]
     },
-    "CloudinaryDotNet/1.3.1": {
-      "sha512": "i6jZWXl3SaqQjvoe7UFJ5CORA/sEW+yVZuHajU/nE2lJuxCFihdpNWxSU7/lwpogzZ4ogbbk66Y9T5MfRQCihg==",
+    "CloudinaryDotNet/1.2.0": {
+      "sha512": "vDVJphErvptCVvDTaLnIs5yxWRmCA7nB2EOMiFK2+Yjc9aBL/InKvKgEQJtYJ08XfiwaPUkYcS1qVqCbMYTOcg==",
       "type": "package",
-      "path": "cloudinarydotnet/1.3.1",
+      "path": "cloudinarydotnet/1.2.0",
       "files": [
-        "cloudinarydotnet.1.3.1.nupkg.sha512",
+        "cloudinarydotnet.1.2.0.nupkg.sha512",
         "cloudinarydotnet.nuspec",
         "lib/net40/CloudinaryDotNet.dll",
         "lib/net40/Newtonsoft.Json.dll",
@@ -11926,7 +11923,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 4.0.1",
-      "CloudinaryDotNet >= 1.3.1",
+      "CloudinaryDotNet >= 1.2.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.EntityFrameworkCore.Sqlite >= 2.1.1",
       "Microsoft.NETCore.App >= 2.1.0"
@@ -11939,11 +11936,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\JavaScript_Web\\_Projects\\PhotoBookApp\\photobook.api\\PhotoBookApp.API.csproj",
+      "projectUniqueName": "d:\\GitHub\\JavaScript_Web\\_Projects\\PhotoBookApp\\PhotoBook.API\\PhotoBookApp.API.csproj",
       "projectName": "PhotoBookApp.API",
-      "projectPath": "D:\\GitHub\\JavaScript_Web\\_Projects\\PhotoBookApp\\photobook.api\\PhotoBookApp.API.csproj",
+      "projectPath": "d:\\GitHub\\JavaScript_Web\\_Projects\\PhotoBookApp\\PhotoBook.API\\PhotoBookApp.API.csproj",
       "packagesPath": "C:\\Users\\Nedelcho Penev\\.nuget\\packages\\",
-      "outputPath": "D:\\GitHub\\JavaScript_Web\\_Projects\\PhotoBookApp\\photobook.api\\obj\\",
+      "outputPath": "d:\\GitHub\\JavaScript_Web\\_Projects\\PhotoBookApp\\PhotoBook.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -11979,7 +11976,7 @@
           },
           "CloudinaryDotNet": {
             "target": "Package",
-            "version": "[1.3.1, )"
+            "version": "[1.2.0, )"
           },
           "Microsoft.AspNetCore.App": {
             "suppressParent": "All",
@@ -12004,17 +12001,5 @@
         "warn": true
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "CloudinaryDotNet 1.3.1 depends on Newtonsoft.Json (>= 11.0.0) but Newtonsoft.Json 11.0.0 was not found. An approximate best match of Newtonsoft.Json 11.0.1 was resolved.",
-      "libraryId": "Newtonsoft.Json",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v2.1"
-      ]
-    }
-  ]
+  }
 }

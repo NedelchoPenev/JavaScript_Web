@@ -1,9 +1,9 @@
 <div class="container mt-4">
-  <h1 style="text-align: center">{{user.username | titlecase}}'s Profile</h1>
+  <h1 style="text-align: center">{{user.userName | titlecase}}'s Profile</h1>
   <div class="row">
     <div class="col-sm-4 mt-4">
       <div class="card">
-        <img class="card-img-top img-thumbnail" src="{{user.photoUrl || '../../../assets/user.png'}}" alt="{{user.username}}">
+        <img class="card-img-top img-thumbnail" src="{{user.photoUrl || '../../../assets/user.png'}}" alt="{{user.userName}}">
         <div class="card-body">
           <div>
             <strong>Location:</strong>
@@ -25,15 +25,15 @@
         <div class="card-footer">
           <div class="btn-group d-flex">
             <button class="btn btn-primary w-100" (click)="sendLike(user.id)">Like</button>
-            <button class="btn btn-success w-100">Message</button>
+            <button class="btn btn-success w-100" (click)="selectTab(2)">Message</button>
           </div>
         </div>
       </div>
     </div>
     <div class="col-sm-8 mt-4">
       <div class="tab-panel">
-        <tabset class="member-tabset">
-            <tab heading="About {{user.username | titlecase}}">
+        <tabset class="member-tabset" #staticTabs>
+            <tab heading="About {{user.userName | titlecase}}">
                 <h4>Description</h4>
                 <p>{{user.introduction}}</p>
               </tab>
@@ -41,7 +41,7 @@
             <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
           </tab>
           <tab heading="Messages">
-            <p>Messages will go here</p>
+            <app-photographer-messages [recipientId]="user.id"></app-photographer-messages>
           </tab>
         </tabset>
       </div>

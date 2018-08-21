@@ -2,9 +2,9 @@
   <h2 class="text-center text-primary">Sign Up</h2>
   <hr>
   <div class="form-group">
-    <input type="text" class="form-control" required name="username" 
-    [(ngModel)]="model.username" placeholder="Username" #username="ngModel">
-    <div [hidden]="username.valid || username.pristine" class="alert-danger">
+    <input type="text" class="form-control" required name="userName" 
+    [(ngModel)]="model.userName" placeholder="Username" #userName="ngModel">
+    <div [hidden]="userName.valid || userName.pristine" class="alert-danger">
       Username is required
     </div>
   </div>

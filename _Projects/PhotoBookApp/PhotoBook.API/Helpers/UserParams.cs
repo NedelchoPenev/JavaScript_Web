@@ -11,7 +11,7 @@ namespace PhotoBook.API.Helpers
             set { pageSize = (value > MaxPageSize) ? MaxPageSize : value;}
         }
 
-        public int userId { get; set; }
+        public int UserId { get; set; }
         public bool Likees { get; set; } = false;
         public bool Likers { get; set; } = false;
     }
