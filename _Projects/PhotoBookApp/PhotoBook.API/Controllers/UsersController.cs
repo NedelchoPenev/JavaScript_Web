@@ -82,7 +82,7 @@ namespace PhotoBook.API.Controllers
                 return BadRequest("You cannot like yourself");
             }
 
-            var like = await this.repo.GetLike(id, recipientId);
+            var like = await this.repo.GetLikeUser(id, recipientId);
 
             if (like != null)
             {
@@ -94,13 +94,13 @@ namespace PhotoBook.API.Controllers
                 return NotFound();
             }
 
-            like = new Like
+            like = new UserLike
             {
                 LikerId = id,
                 LikeeId = recipientId
             };
 
-            this.repo.Add<Like>(like);
+            this.repo.Add<UserLike>(like);
 
             if (await this.repo.SaveAll())
             {

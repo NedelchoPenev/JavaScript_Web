@@ -1,6 +1,6 @@
 namespace PhotoBook.API.Models
 {
-    public class Like
+    public class UserLike
     {
         public int LikerId { get; set; }
         public int LikeeId { get; set; }

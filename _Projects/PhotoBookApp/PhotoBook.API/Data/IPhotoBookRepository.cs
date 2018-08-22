@@ -14,8 +14,10 @@ namespace PhotoBook.API.Data
         Task<User> GetUser(int id);
         Task<Photo> GetPhoto(int id);
         Task<IEnumerable<Photo>> GetPhotos();
+        Task<IEnumerable<Photo>> GetFavoritePhotos(int userId);
         Task<Photo> GetMainPhoto(int userId);
-        Task<Like> GetLike(int userId, int recipientId);
+        Task<UserLike> GetLikeUser(int userId, int recipientId);
+        Task<PhotoLike> GetLikePhoto(int userId, int photoId);
         Task<Message> GetMessage(int id);
         Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams);
         Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);

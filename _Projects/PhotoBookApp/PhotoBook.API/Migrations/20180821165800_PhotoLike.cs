@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PhotoBookApp.API.Migrations
 {
-    public partial class IdentityInitial : Migration
+    public partial class PhotoLike : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -160,30 +160,6 @@ namespace PhotoBookApp.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Likes",
-                columns: table => new
-                {
-                    LikerId = table.Column<int>(nullable: false),
-                    LikeeId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Likes", x => new { x.LikerId, x.LikeeId });
-                    table.ForeignKey(
-                        name: "FK_Likes_AspNetUsers_LikeeId",
-                        column: x => x.LikeeId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Likes_AspNetUsers_LikerId",
-                        column: x => x.LikerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Messages",
                 columns: table => new
                 {
@@ -239,6 +215,54 @@ namespace PhotoBookApp.API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "UserLike",
+                columns: table => new
+                {
+                    LikerId = table.Column<int>(nullable: false),
+                    LikeeId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserLike", x => new { x.LikerId, x.LikeeId });
+                    table.ForeignKey(
+                        name: "FK_UserLike_AspNetUsers_LikeeId",
+                        column: x => x.LikeeId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserLike_AspNetUsers_LikerId",
+                        column: x => x.LikerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PhotoLike",
+                columns: table => new
+                {
+                    PhotoId = table.Column<int>(nullable: false),
+                    LikerId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PhotoLike", x => new { x.PhotoId, x.LikerId });
+                    table.ForeignKey(
+                        name: "FK_PhotoLike_AspNetUsers_LikerId",
+                        column: x => x.LikerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PhotoLike_Photos_PhotoId",
+                        column: x => x.PhotoId,
+                        principalTable: "Photos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -277,11 +301,6 @@ namespace PhotoBookApp.API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Likes_LikeeId",
-                table: "Likes",
-                column: "LikeeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Messages_RecipientId",
                 table: "Messages",
                 column: "RecipientId");
@@ -292,9 +311,19 @@ namespace PhotoBookApp.API.Migrations
                 column: "SenderId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PhotoLike_LikerId",
+                table: "PhotoLike",
+                column: "LikerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Photos_UserId",
                 table: "Photos",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserLike_LikeeId",
+                table: "UserLike",
+                column: "LikeeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -315,16 +344,19 @@ namespace PhotoBookApp.API.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Likes");
-
-            migrationBuilder.DropTable(
                 name: "Messages");
 
             migrationBuilder.DropTable(
-                name: "Photos");
+                name: "PhotoLike");
+
+            migrationBuilder.DropTable(
+                name: "UserLike");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Photos");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

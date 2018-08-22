@@ -84,19 +84,6 @@ namespace PhotoBookApp.API.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("PhotoBook.API.Models.Like", b =>
-                {
-                    b.Property<int>("LikerId");
-
-                    b.Property<int>("LikeeId");
-
-                    b.HasKey("LikerId", "LikeeId");
-
-                    b.HasIndex("LikeeId");
-
-                    b.ToTable("Likes");
-                });
-
             modelBuilder.Entity("PhotoBook.API.Models.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -149,6 +136,19 @@ namespace PhotoBookApp.API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Photos");
+                });
+
+            modelBuilder.Entity("PhotoBook.API.Models.PhotoLike", b =>
+                {
+                    b.Property<int>("PhotoId");
+
+                    b.Property<int>("LikerId");
+
+                    b.HasKey("PhotoId", "LikerId");
+
+                    b.HasIndex("LikerId");
+
+                    b.ToTable("PhotoLike");
                 });
 
             modelBuilder.Entity("PhotoBook.API.Models.Role", b =>
@@ -234,6 +234,19 @@ namespace PhotoBookApp.API.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("PhotoBook.API.Models.UserLike", b =>
+                {
+                    b.Property<int>("LikerId");
+
+                    b.Property<int>("LikeeId");
+
+                    b.HasKey("LikerId", "LikeeId");
+
+                    b.HasIndex("LikeeId");
+
+                    b.ToTable("UserLike");
+                });
+
             modelBuilder.Entity("PhotoBook.API.Models.UserRole", b =>
                 {
                     b.Property<int>("UserId");
@@ -279,19 +292,6 @@ namespace PhotoBookApp.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("PhotoBook.API.Models.Like", b =>
-                {
-                    b.HasOne("PhotoBook.API.Models.User", "Likee")
-                        .WithMany("Likers")
-                        .HasForeignKey("LikeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PhotoBook.API.Models.User", "Liker")
-                        .WithMany("Likees")
-                        .HasForeignKey("LikerId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("PhotoBook.API.Models.Message", b =>
                 {
                     b.HasOne("PhotoBook.API.Models.User", "Recipient")
@@ -311,6 +311,32 @@ namespace PhotoBookApp.API.Migrations
                         .WithMany("Photos")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PhotoBook.API.Models.PhotoLike", b =>
+                {
+                    b.HasOne("PhotoBook.API.Models.User", "Liker")
+                        .WithMany("PhotosLike")
+                        .HasForeignKey("LikerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("PhotoBook.API.Models.Photo", "Photo")
+                        .WithMany()
+                        .HasForeignKey("PhotoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PhotoBook.API.Models.UserLike", b =>
+                {
+                    b.HasOne("PhotoBook.API.Models.User", "Likee")
+                        .WithMany("Likers")
+                        .HasForeignKey("LikeeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("PhotoBook.API.Models.User", "Liker")
+                        .WithMany("Likees")
+                        .HasForeignKey("LikerId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("PhotoBook.API.Models.UserRole", b =>

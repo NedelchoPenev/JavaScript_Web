@@ -13,4 +13,12 @@ export class PhotoService {
   getPhotos() {
     return this.http.get(baseUrl + 'photos');
   }
+
+  getFavoritePhotos(userId) {
+    return this.http.get(baseUrl + 'photos/favorite/' + userId);
+  }
+
+  sendLike(userId, photoId) {
+    return this.http.post(baseUrl + 'photos/' + userId + '/like/' + photoId, {});
+  }
 }

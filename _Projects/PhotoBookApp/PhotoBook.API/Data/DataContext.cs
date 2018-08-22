@@ -11,7 +11,8 @@ namespace PhotoBook.API.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Photo> Photos { get; set; }
-        public DbSet<Like> Likes { get; set; }
+        public DbSet<UserLike> UserLike { get; set; }
+        public DbSet<PhotoLike> PhotoLike { get; set; }
         public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -33,16 +34,25 @@ namespace PhotoBook.API.Data
                     .IsRequired();
             });
 
-            builder.Entity<Like>()
+            builder.Entity<PhotoLike>()
+                .HasKey(k => new { k.PhotoId, k.LikerId});
+
+            builder.Entity<PhotoLike>()
+                .HasOne(u => u.Liker)
+                .WithMany(p => p.PhotosLike)
+                .HasForeignKey(u => u.LikerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserLike>()
                 .HasKey(k => new { k.LikerId, k.LikeeId });
 
-            builder.Entity<Like>()
+            builder.Entity<UserLike>()
                 .HasOne(u => u.Likee)
                 .WithMany(u => u.Likers)
                 .HasForeignKey(u => u.LikeeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<Like>()
+            builder.Entity<UserLike>()
                 .HasOne(u => u.Liker)
                 .WithMany(u => u.Likees)
                 .HasForeignKey(u => u.LikerId)

@@ -25,10 +25,16 @@ namespace PhotoBook.API.Data
             this.context.Remove(entity);
         }
 
-        public async Task<Like> GetLike(int userId, int recipientId)
+        public async Task<UserLike> GetLikeUser(int userId, int recipientId)
         {
-            return await this.context.Likes.FirstOrDefaultAsync(u =>
+            return await this.context.UserLike.FirstOrDefaultAsync(u =>
                 u.LikerId == userId && u.LikeeId == recipientId);
+        }
+
+        public async Task<PhotoLike> GetLikePhoto(int userId, int photoId)
+        {
+            return await this.context.PhotoLike.FirstOrDefaultAsync(p => 
+                p.LikerId == userId && p.PhotoId == photoId);
         }
 
         public async Task<Photo> GetMainPhoto(int userId)
@@ -46,7 +52,22 @@ namespace PhotoBook.API.Data
 
         public async Task<IEnumerable<Photo>> GetPhotos()
         {
-            var photos = await this.context.Photos.Include(u => u.User).Where(p => p.IsMain == false).ToListAsync();
+            var photos = await this.context.Photos.Include(u => u.User)
+                .Where(p => p.IsMain == false)
+                .OrderByDescending(p => p.DateAdded)
+                .ToListAsync();
+
+            return photos;
+        }
+
+        public async Task<IEnumerable<Photo>> GetFavoritePhotos(int userId)
+        {
+            var photos = await this.context.PhotoLike
+                .Include(p => p.Photo)
+                .Where(u => u.LikerId == userId)
+                .OrderByDescending(p => p.Photo.DateAdded)
+                .Select(p => p.Photo)
+                .ToListAsync();
 
             return photos;
         }

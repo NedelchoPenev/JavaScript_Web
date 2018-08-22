@@ -1,0 +1,20 @@
+<div class="container">
+  <carousel>
+    <slide *ngFor="let photo of photos">
+      <img src="{{photo.url}}" alt="{{photo.id}}" style="display: block; width: 100%;">
+      <div class="carousel-caption d-none d-md-block">
+        <p>{{photo.description}}</p>
+        <li class="list-inline-item">
+          <button class="btn btn-info" (click)="sendLike(photo.id)" title="Like Picture">
+            <i class="fa fa-heart"></i>
+          </button>
+        </li>
+        <li class="list-inline-item">
+          <button class="btn btn-info" [routerLink]="['/photographer/', photo.userId]" title="Photographer Profile">
+            <i class="fa fa-user"></i>
+          </button>
+        </li>
+      </div>
+    </slide>
+  </carousel>
+</div>
